@@ -4,9 +4,9 @@
                  v-for="pd in processDefinitionsLabels()"
                  :to="{name: 'ProcessDefinitions', query: {key: pd}}"
                  :key="pd">
-      <q-badge>
+      <q-chip  dense square color="primary" text-color="white">
         {{ pd }}
-      </q-badge>
+      </q-chip>
     </router-link>
   </div>
 

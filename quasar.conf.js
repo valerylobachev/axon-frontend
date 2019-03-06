@@ -22,7 +22,8 @@ module.exports = function (ctx) {
     boot: [
       'auth',
       'i18n',
-      'axios'
+      'axios',
+      'validate',
     ],
 
     css: [
@@ -57,14 +58,14 @@ module.exports = function (ctx) {
       //   'QItemLabel'
       // ],
       //
-      // directives: [
-      //   'Ripple'
-      // ],
-      //
-      // // Quasar plugins
-      // plugins: [
-      //   'Notify'
-      // ]
+      directives: [
+        'Ripple'
+      ],
+
+      // Quasar plugins
+      plugins: [
+        'Notify'
+      ],
 
       // iconSet: 'fontawesome-v5',
       lang: 'ru'

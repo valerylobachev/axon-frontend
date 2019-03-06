@@ -169,6 +169,7 @@ export default {
       find: 'Find',
       filter: 'Filter',
       actions: 'Actions',
+      checkRequirements: 'Action cannot be performed. Please, check requirements.'
     },
   },
 };

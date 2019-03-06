@@ -57,7 +57,9 @@
                row-key="id">
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td key="name" :props="props">{{ props.row.name }}</q-td>
+            <q-td key="name" :props="props">
+              <router-link class="view-link text-primary" :to="`bpm-diagram/view/${props.row.id}`">{{ props.row.name }}</router-link>
+            </q-td>
             <q-td key="description" :props="props" style="max-width: 30em;">
               <div class="ellipsis">
                 {{ props.row.description }}
@@ -69,7 +71,7 @@
             </q-td>
             <q-td key="actions" :props="props" style="width: 12em">
               <q-btn flat round color="green" size="sm" icon="far fa-copy" :to="`bpm-diagram/create/${props.row.id}`"/>
-              <q-btn flat round color="blue" size="sm" icon="far fa-edit" :to="`bpm-diagram/create/${props.row.id}`"/>
+              <q-btn flat round color="blue" size="sm" icon="far fa-edit" :to="`bpm-diagram/edit/${props.row.id}`"/>
               <q-btn flat round color="deep-purple" size="sm" icon="fas fa-upload" @click="deploy(props.row.id)"/>
               <q-btn flat round color="red" size="sm" icon="far fa-trash-alt" @click="requestDelete(props.row)"/>
             </q-td>
@@ -193,4 +195,9 @@
   }
 </script>
 
-<style></style>
+<style>
+  a.view-link {
+    font-weight: bolder;
+    text-decoration: none;
+  }
+</style>

@@ -68,7 +68,7 @@ function buildMutations<F, T, S>(
   }
 }
 
-function buildState<F, T, S>(filter: F): BaseState<F, T, S> {
+function buildState<F, T, S>(filter: F,  sortBy: string = null, rowsPerPage: number = 10): BaseState<F, T, S> {
   return {
     entities: {},
 
@@ -79,10 +79,10 @@ function buildState<F, T, S>(filter: F): BaseState<F, T, S> {
     failure: null,
 
     pagination: {
-      sortBy: null,
+      sortBy: sortBy,
       descending: false,
       page: 1,
-      rowsPerPage: 5
+      rowsPerPage: rowsPerPage
     }
   }
 }

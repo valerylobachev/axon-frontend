@@ -29,21 +29,24 @@ function buildActions<F, T, S>(
 
     Create(context, entity: T) {
       context.commit('Create');
-      backendService
+      return backendService
         .create(entity)
         .then(entitySummary => context.commit('CreateSuccess', {entity, entitySummary}))
-        .catch(failure => context.commit('CreateFailure', failure.response.data));
+        .catch(failure => {
+          console.log(failure)
+          context.commit('CreateFailure', failure.response.data)
+        });
     },
 
     Update(context, entity: T) {
-      backendService
+      return backendService
         .update(entity)
         .then(entitySummary => context.commit('UpdateSuccess', {entity, entitySummary}))
         .catch(failure => context.commit('UpdateFailure', failure.response.data));
     },
 
     Delete(context, id: string) {
-      backendService
+      return backendService
         .remove(id)
         .then(response => {
           context.commit('DeleteSuccess', id);
@@ -118,9 +121,7 @@ function buildMutations<F, T, S>(
       state.saving = false;
       state.failure = null;
       state.saved = true;
-      if (state.entities[entitySummary[idField]]) {
-        state.entities[entitySummary[idField]] = entitySummary;
-      }
+      state.entities[entitySummary[idField]] = entitySummary;
       state.entity = {...entity};
       navigateToEdit(entity);
     },
@@ -141,9 +142,7 @@ function buildMutations<F, T, S>(
       state.saving = false;
       state.failure = null;
       state.saved = true;
-      if (state.entities[entitySummary[idField]]) {
-        state.entities[entitySummary[idField]] = entitySummary;
-      }
+      state.entities[entitySummary[idField]] = entitySummary;
       state.entity = {...entity};
     },
 
@@ -170,8 +169,8 @@ function buildMutations<F, T, S>(
   return {...baseMutations, ...crudMutations};
 }
 
-function buildState<F, T, S>(filter: F): CrudState<F, T, S> {
-  const baseState = BaseStoreBuilder.buildState<F, T, S>(filter);
+function buildState<F, T, S>(filter: F, sortBy: string = null, rowsPerPage: number = 10): CrudState<F, T, S> {
+  const baseState = BaseStoreBuilder.buildState<F, T, S>(filter, sortBy, rowsPerPage);
   const crudState = {
     mode: null,
     id: null,

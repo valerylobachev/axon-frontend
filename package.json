@@ -12,11 +12,18 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.0",
+    "bpmn-js": "^3.2.1",
+    "bpmn-js-properties-panel": "^0.29.0",
+    "camunda-bpmn-moddle": "^3.2.0",
+    "cmmn-js": "^0.17.1",
+    "dmn-js": "^6.2.3",
     "keycloak-js": "^4.8.3",
+    "lodash": "^4.17.11",
     "quasar": "^1.0.0-beta.0",
     "vue-class-component": "^7.0.1",
     "vue-i18n": "^7.3.3",
     "vue-property-decorator": "^7.3.0",
+    "vuelidate": "^0.7.4",
     "vuex-class": "^0.3.1",
     "vuex-router-sync": "^5.0.0"
   },
