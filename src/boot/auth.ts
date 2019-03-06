@@ -1,4 +1,4 @@
-import * as Keycloak from 'keycloak-js';
+import Keycloak from 'keycloak-js';
 import axios from 'axios';
 
 console.log('Keycloak creating...');

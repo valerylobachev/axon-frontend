@@ -39,6 +39,15 @@
       </div>
     </q-card-section>
     <q-card-section>
+      <q-banner class="text-white bg-red" inline-actions rounded v-if="failure">
+        <div class="text-h6">
+          {{ $t('axon.shared.error') }}
+        </div>
+        <p> {{ $t(failure.code, failure) }}</p>
+        <template v-slot:action>
+          <q-btn flat round icon="fas fa-times" @click="clearFailure"/>
+        </template>
+      </q-banner>
       <q-tabs v-model="tab"
               dense
               class="text-grey"
@@ -133,12 +142,12 @@
 
 <script lang="ts">
   import {Component, Vue, Watch} from "vue-property-decorator";
-  import ProcessDefLabels from '../../components/ProcessDefLabels.vue';
-  import BpmnEdit from '../../components/bpmn/BpmnEdit.vue';
-  import BpmnView from '../../components/bpmn/BpmnView.vue';
-  import CmmnView from '../../components/bpmn/CmmnView.vue';
-  import DmnView from '../../components/bpmn/DmnView.vue';
-  import {Action, Getter} from 'vuex-class';
+  import ProcessDefLabels from '../../components/config/ProcessDefLabels.vue';
+  import BpmnEdit from '../../components/config/bpmn/BpmnEdit.vue';
+  import BpmnView from '../../components/config/bpmn/BpmnView.vue';
+  import CmmnView from '../../components/config/bpmn/CmmnView.vue';
+  import DmnView from '../../components/config/bpmn/DmnView.vue';
+  import {Action, Getter, Mutation} from 'vuex-class';
   import {BPM_DIAGRAM_NAMESPACE} from '../../store/bpm-diagram/store';
   import {BpmDiagram, newBpmnDiagram} from '../../store/bpm-diagram/model';
   import { required } from 'vuelidate/lib/validators'
@@ -177,6 +186,7 @@
     @Action('Init', {namespace}) initBpmDiagram: any;
     @Action('Create', {namespace}) createBpmDiagram: any;
     @Action('Update', {namespace}) updateBpmDiagram: any;
+    @Mutation('ClearFailure', {namespace}) clearFailure: any;
 
 
     @Watch('entity')

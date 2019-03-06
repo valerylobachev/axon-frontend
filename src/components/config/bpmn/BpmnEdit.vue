@@ -6,9 +6,9 @@
 </template>
 
 <script lang="ts">
-    import '../../../node_modules/bpmn-js/dist/assets/diagram-js.css';
-    import '../../../node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
-    import '../../../node_modules/bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
+    import '../../../../node_modules/bpmn-js/dist/assets/diagram-js.css';
+    import '../../../../node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+    import '../../../../node_modules/bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
 
     import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
     import _ from 'lodash';

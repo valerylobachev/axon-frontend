@@ -4,12 +4,15 @@
 </template>
 
 <script lang="ts">
-    import '../../../node_modules/cmmn-js/dist/assets/cmmn-font/css/cmmn.css';
+    import '../../../../node_modules/dmn-js/dist/assets/dmn-js-drd.css';
+    import '../../../../node_modules/dmn-js/dist/assets/dmn-js-decision-table.css';
+    import '../../../../node_modules/dmn-js/dist/assets/dmn-js-literal-expression.css';
+    import '../../../../node_modules/dmn-js/dist/assets/dmn-font/css/dmn.css'
     import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-    import CmmnJS from 'cmmn-js/lib/Viewer';
+    import DmnJS from 'dmn-js/lib/Viewer';
 
     @Component({})
-    export default class CmmnView extends Vue {
+    export default class DmnView extends Vue {
         viewer: any = null;
 
         @Prop(String) value: string;
@@ -22,11 +25,8 @@
         mounted() {
             const selector = document.querySelector('#bpmn-viewer');
 
-            this.viewer = new CmmnJS({
+            this.viewer = new DmnJS({
                 container: selector,
-                keyboard: {
-                    bindTo: selector,
-                },
             });
             if (this.value && this.value !== '') {
                 this.importXml(this.value);
@@ -37,9 +37,9 @@
             if (this.viewer) {
                 this.viewer.importXML(xml, err => {
                     if (err) {
-                        console.error('CMMN import error');
+                        console.error('DMN import error');
                     } else {
-                        console.log('cmmn import ok');
+                        console.log('dmn import ok');
                     }
                 });
             }
@@ -47,7 +47,7 @@
     }
 </script>
 
-<style l>
+<style >
 
     .bpmn-content {
         position: relative;

@@ -7,6 +7,7 @@ export interface Pagination {
 
 export interface BaseState<F, T, S> {
   entities: { [id: string]: S };
+  entityArray: S[]
 
   filterInitialized: boolean;
   filter: F;

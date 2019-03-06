@@ -58,7 +58,9 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="name" :props="props">
-              <router-link class="view-link text-primary" :to="`bpm-diagram/view/${props.row.id}`">{{ props.row.name }}</router-link>
+              <router-link class="view-link text-primary" :to="`bpm-diagram/view/${props.row.id}`">{{ props.row.name
+                }}
+              </router-link>
             </q-td>
             <q-td key="description" :props="props" style="max-width: 30em;">
               <div class="ellipsis">
@@ -95,7 +97,7 @@
   import bpmDeploymentBackendService from '../../store/deployment/backend.service';
   import {BPM_DIAGRAM_NAMESPACE} from '../../store/bpm-diagram/store';
   import SimpleLazyFilter from '../../components/SimpleLazyFilter.vue';
-  import ProcessDefLabels from '../../components/ProcessDefLabels.vue';
+  import ProcessDefLabels from '../../components/config/ProcessDefLabels.vue';
   import DeleteDialog from '../../components/DeleteDialog.vue';
   import MessageDialog from '../../components/MessageDialog.vue';
 
@@ -184,12 +186,15 @@
 
     deploy(id: string) {
       bpmDeploymentBackendService.deploy(id).then(result => {
+        console.log(result)
         const message = {
           code: 'axon.bpm.form.bpmDiagrams.deployed',
           name: result.name,
         };
-        (this.$refs.deployDialog as MessageDialog)
-          .show('axon.bpm.form.bpmDiagrams.deployedTitle', message);
+        this.$q.notify({
+          color: 'deep-purple',
+          message: this.$t(message.code, message)
+        })
       });
     }
   }

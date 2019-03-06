@@ -7,13 +7,7 @@
     <q-separator/>
 
     <q-card-section>
-      <div class="row q-gutter-md items-center">
-        <div class="col">
-          <simple-lazy-filter :filter="filter.filter" @filter="find({ filter: $event })"></simple-lazy-filter>
-        </div>
-
-
-      </div>
+      <process-def-filter :filter="filter" @filter="find"></process-def-filter>
 
     </q-card-section>
     <q-card-section>
@@ -45,11 +39,12 @@
   import {Component, Vue, Watch} from "vue-property-decorator";
   import {Action, Getter, Mutation} from 'vuex-class';
   import SimpleLazyFilter from '../../components/SimpleLazyFilter.vue';
-  import ProcessDefLabels from '../../components/ProcessDefLabels.vue';
+  import ProcessDefLabels from '../../components/config/ProcessDefLabels.vue';
   import DeleteDialog from '../../components/DeleteDialog.vue';
   import MessageDialog from '../../components/MessageDialog.vue';
   import {BPM_DEPLOYMENT_NAMESPACE} from '../../store/deployment/store';
   import {emptyProcessDefFilter} from '../../store/deployment/model';
+  import ProcessDefFilter from '../../components/config/ProcessDefFilter.vue';
 
   const namespace: string = BPM_DEPLOYMENT_NAMESPACE;
 
@@ -57,6 +52,7 @@
     components: {
       SimpleLazyFilter,
       ProcessDefLabels,
+      ProcessDefFilter,
       DeleteDialog,
       MessageDialog,
     }

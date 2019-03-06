@@ -9,26 +9,12 @@ export interface BpmDeploymentState
     extends BaseState<FindProcessDefOptions, ProcessDef, ProcessDef> {
 }
 
-const state: BpmDeploymentState = BaseStoreBuilder.buildState(emptyProcessDefFilter());
+const state: BpmDeploymentState = BaseStoreBuilder.buildState(emptyProcessDefFilter(), 'key');
 
 const actions = BaseStoreBuilder.buildActions<FindProcessDefOptions, ProcessDef, ProcessDef>(
     bpmDeploymentBackendService, emptyProcessDefFilter(),
 );
 
-
-function sortByField(field: string, ascending: boolean) {
-    return (aObj: ProcessDef, bObj: ProcessDef) => {
-        const a = field === 'version' ? aObj[field] : (aObj[field] || '').toLowerCase();
-        const b = field === 'version' ? bObj[field] : (bObj[field] || '').toLowerCase();
-        if (a < b) {
-            return ascending ? -1 : 1;
-        } else if (a > b) {
-            return ascending ? 1 : -1;
-        } else {
-            return 0;
-        }
-    };
-}
 const mutations = BaseStoreBuilder.buildMutations<FindProcessDefOptions, ProcessDef, ProcessDef>('id');
 
 const getters = BaseStoreBuilder.buildGetters<FindProcessDefOptions, ProcessDef, ProcessDef>();

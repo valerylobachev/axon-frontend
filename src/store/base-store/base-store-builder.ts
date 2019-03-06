@@ -28,7 +28,7 @@ function buildGetters<F, T, S>(): GetterTree<BaseState<F, T, S>, RootState> {
   return {
     filter: state => state.filter,
     pagination: state => state.pagination,
-    entityArray: state => Object.values(state.entities),
+    entityArray: state => state.entityArray,
 
     entitiesLoading: state => state.entitiesLoading,
 
@@ -51,10 +51,12 @@ function buildMutations<F, T, S>(
       state.entitiesLoading = false;
       state.entities = {};
       entities.forEach(s => state.entities[s[idField]] = s);
+      state.entityArray = entities
       state.failure = null;
     },
     FindFailure: (state: BaseState<F, T, S>, failure: any) => {
       state.entities = {};
+      state.entityArray = []
       state.failure = failure;
       state.entitiesLoading = false;
     },
@@ -71,6 +73,7 @@ function buildMutations<F, T, S>(
 function buildState<F, T, S>(filter: F,  sortBy: string = null, rowsPerPage: number = 10): BaseState<F, T, S> {
   return {
     entities: {},
+    entityArray: [],
 
     filterInitialized: false,
     filter,

@@ -122,6 +122,7 @@ function buildMutations<F, T, S>(
       state.failure = null;
       state.saved = true;
       state.entities[entitySummary[idField]] = entitySummary;
+      state.entityArray = Object.values(state.entities)
       state.entity = {...entity};
       navigateToEdit(entity);
     },
@@ -143,6 +144,7 @@ function buildMutations<F, T, S>(
       state.failure = null;
       state.saved = true;
       state.entities[entitySummary[idField]] = entitySummary;
+      state.entityArray = Object.values(state.entities)
       state.entity = {...entity};
     },
 
@@ -158,6 +160,7 @@ function buildMutations<F, T, S>(
     },
     DeleteSuccess: (state: CrudState<F, T, S>, id: string) => {
       Vue.delete(state.entities, id)
+      state.entityArray = Object.values(state.entities)
       state.saving = false;
       state.failure = null;
     },
