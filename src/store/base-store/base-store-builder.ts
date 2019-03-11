@@ -16,7 +16,7 @@ function buildActions<F, T, S>(
 
     Find(context, filter: F) {
       context.commit('Find', filter);
-      backendService
+      return backendService
         .find(filter)
         .then(response => context.commit('FindSuccess', response))
         .catch(failure => context.commit('FindFailure', failure.response.data));

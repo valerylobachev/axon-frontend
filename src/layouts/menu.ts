@@ -8,7 +8,7 @@ export const MENU: MenuModel[] = [
   {state: '/projects', name: 'axon.menu.projects', type: 'link', icon: 'fas fa-cubes'},
   {name: 'axon.menu.config.title', type: 'header'},
   {
-    state: '/config/', name: 'axon.menu.config.bpm.title', type: 'sub', icon: 'fas fa-tasks',
+    state: '/config/bpm', name: 'axon.menu.config.bpm.title', type: 'sub', icon: 'fas fa-tasks',
     children: [
       {
         state: '/config/bpm-diagrams', name: 'axon.menu.config.bpm.bpmDiagrams',
@@ -24,10 +24,10 @@ export const MENU: MenuModel[] = [
     ],
   },
   {
-    state: '/knowledge-config/', name: 'axon.menu.config.knowledge.title', type: 'sub', icon: 'fas fa-database',
+    state: '/config/knowledge', name: 'axon.menu.config.knowledge.title', type: 'sub', icon: 'fas fa-database',
     children: [
       {
-        state: '/knowledge-config/schemas', name: 'axon.menu.config.knowledge.dataSchemas',
+        state: '/config/data-schemas', name: 'axon.menu.config.knowledge.dataSchemas',
         type: 'link', icon: 'fas fa-table',
       },
     ],

@@ -10,6 +10,8 @@ const routes = [
       {path: 'config/bpm-diagrams', component: () => import('pages/config/BpmDiagramsPage.vue')},
       {path: 'config/bpm-diagram/:action/:id', component: () => import('pages/config/BpmDiagramPage.vue')},
       {path: 'config/process-definitions', name: 'ProcessDefinitions', component: () => import('pages/config/ProcessDefinitionsPage.vue')},
+      {path: 'config/data-schemas', component: () => import('pages/config/DataSchemasPage.vue')},
+      {path: 'config/data-schema/:action/:key', component: () => import('pages/config/DataSchemaPage.vue')},
 
     ]
   }

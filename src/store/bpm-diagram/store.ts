@@ -47,7 +47,7 @@ const mutations = CrudStoreBuilder.buildMutations<BpmDiagramFilter, BpmDiagram, 
   entity => {
     Router.push(`/config/bpm-diagram/edit/${entity.id}`)
   },
-  () => 'qqqq' //uuidv4()
+  () => uuidv4()
 );
 
 const getters = CrudStoreBuilder.buildGetters<BpmDiagramFilter, BpmDiagram, BpmDiagramSummary>();

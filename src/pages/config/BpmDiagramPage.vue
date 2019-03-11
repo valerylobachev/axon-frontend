@@ -1,9 +1,12 @@
 <template>
   <q-card class="q-ma-md">
     <q-card-section>
-      <div class="text-h6" v-if="action == 'create'">{{ $t('axon.bpm.form.bpmDiagramForm.createTitle') }}</div>
-      <div class="text-h6" v-else-if="action == 'view'">{{ $t('axon.bpm.form.bpmDiagramForm.viewTitle') }}</div>
-      <div class="text-h6" v-else-if="action == 'edit'">{{ $t('axon.bpm.form.bpmDiagramForm.editTitle') }}</div>
+      <div class="text-h6" >
+        <span v-if="action == 'create'">{{ $t('axon.bpm.form.bpmDiagramForm.createTitle') }} </span>
+        <span v-else-if="action == 'view'">{{ $t('axon.bpm.form.bpmDiagramForm.viewTitle') }} </span>
+        <span v-else-if="action == 'edit'">{{ $t('axon.bpm.form.bpmDiagramForm.editTitle') }} </span>
+        <span v-if="bpmDiagram.name">{{bpmDiagram.name}}</span>
+      </div>
     </q-card-section>
 
     <q-separator/>

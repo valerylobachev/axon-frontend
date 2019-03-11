@@ -123,6 +123,10 @@ export default {
           elementDatatype: 'Element data type',
           delete: 'Are you sure to delete field {key} - {name}?',
         },
+        datatype: {
+          element: 'Element data type',
+          record: 'Data schema'
+        }
       },
       form: {
         dataSchemaList: {
@@ -142,13 +146,14 @@ export default {
           fieldsTab: 'Fields',
         },
         schemaFieldTable: {
+          title: 'Data schema fields',
           notFound: 'No data schema fields has been defined.',
         },
         schemaFieldDialog: {
           viewTitle: 'View data schema field',
           editTitle: 'Edit data schema field',
         },
-        dataSchemaModalSelector: {
+        dataSchemaSelectDialog: {
           title: 'Select data schema',
         },
       },
@@ -169,6 +174,7 @@ export default {
       find: 'Find',
       filter: 'Filter',
       actions: 'Actions',
+      close: 'Close',
       checkRequirements: 'Action cannot be performed. Please, check requirements.'
     },
   },

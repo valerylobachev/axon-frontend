@@ -49,7 +49,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-white">
+    <q-drawer :value="leftDrawerOpen" @input="setLeftDrawer" bordered content-class="bg-white">
       <app-menu></app-menu>
     </q-drawer>
 
@@ -78,6 +78,7 @@
     @Action('SetLanguage', { namespace }) setLanguage: any;
     @Getter("leftDrawerOpen", {namespace}) leftDrawerOpen;
     @Mutation("ToggleLeftDrawer", {namespace}) toggleLeftDrawer;
+    @Mutation("SetLeftDrawer", {namespace}) setLeftDrawer;
 
     get username() {
       const profile = this.appState.profile

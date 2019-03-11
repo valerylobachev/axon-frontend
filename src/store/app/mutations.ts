@@ -12,6 +12,10 @@ export const mutations: MutationTree<AppState> = {
     state.leftDrawerOpen = ! state.leftDrawerOpen
   },
 
+  SetLeftDrawer(state: AppState, open: boolean ) {
+    state.leftDrawerOpen = open
+  },
+
   AuthLogin: (state: AppState, profile: Keycloak.KeycloakProfile) => {
     state.isAuthenticated = true;
     state.profile = profile;
