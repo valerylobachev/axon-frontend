@@ -43,9 +43,18 @@
             :label="$t('axon.knowledge.md.dataSchemaField.datatype')"/>
 
 
+          <div class="text-subtitle1">{{ $t('axon.knowledge.md.dataSchemaField.value') }}</div>
+
+          <q-btn-toggle
+            v-model="defaultValueModel"
+            toggle-color="primary"
+            :readonly="readonly"
+            :options="defaultValueOptions"/>
+
+          <pre>
+{{ schemaField }}
+        </pre>
         </div>
-
-
       </q-card-section>
 
       <q-separator/>
@@ -57,34 +66,7 @@
   </q-dialog>
 
 
-  <!--<sui-modal v-model="open">
-    <sui-modal-header v-if="readonly">{{ $t('axon.knowledge.form.schemaFieldDialog.viewTitle') }}</sui-modal-header>
-    <sui-modal-header v-else>{{ $t('axon.knowledge.form.schemaFieldDialog.editTitle') }}</sui-modal-header>
-    <sui-modal-content scrolling>
-      <sui-modal-description>
-        <div class="ui form" v-if="schemaField">
-          <div class="two fields">
-
-            <div class="field">
-              <label>{{ $t('axon.knowledge.md.dataSchemaField.key') }}</label>
-              <input type="text" name="key" v-model="schemaField.key" :readOnly="readonly">
-            </div>
-          </div>
-          <div class="two fields">
-            <div class="field">
-              <label>{{ $t('axon.knowledge.md.dataSchemaField.name') }}</label>
-              <input type="text" name="name" v-model="schemaField.name" :readOnly="readonly">
-            </div>
-            <div class="field">
-              <label>{{ $t('axon.knowledge.md.dataSchemaField.caption') }}</label>
-              <input
-                type="text"
-                name="caption"
-                v-model="schemaField.caption"
-                :readOnly="readonly">
-            </div>
-          </div>
-
+  <!--
           <datatype-selector
             v-model="schemaField.datatype"
             :readOnly="readonly"
@@ -179,7 +161,7 @@
 <script lang="ts">
   import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import {required} from 'vuelidate/lib/validators'
-  import {DataSchemaField} from '../../store/data-schema/model';
+  import {DataSchemaField, Datatype} from '../../store/data-schema/model';
   import DatatypeInput from './DatatypeInput.vue';
 
 
@@ -250,26 +232,34 @@
       }
     }
 
-    get isNone() {
-      return this.schemaField.value === null || this.schemaField.value === undefined;
-    }
-
-    get isValue() {
-      return (this.schemaField.value || this.schemaField.value === '' ||
-        this.schemaField.value === false || this.schemaField.value === 0);
-    }
-
-    setNone() {
-      if (!this.readonly && !this.isNone) {
-        this.schemaField.value = null;
+    get defaultValueOptions() {
+      if (this.schemaField.datatype.type === 'record') {
+        return [
+          {label: 'None', value: 'none'},
+          {label: 'Default', value: 'default'},
+          {label: 'Value', value: 'value'},
+        ]
+      } else {
+        return [
+          {label: 'None', value: 'none'},
+          {label: 'Value', value: 'value'},
+        ]
       }
     }
 
-    setValue() {
-      console.log('setValue 1');
-      if (!this.readonly && !this.isValue) {
-        console.log('setValue 2');
+    get datatype() {
+      return this.schemaField.datatype
+    }
 
+    @Watch('datatype', {deep: true})
+    onDatatypeChanged(newVal: Datatype, oldVal: Datatype ) {
+      console.log('onDatatypeChanged')
+      this.defaultValueModel = 'value'
+    }
+
+    set defaultValueModel(val: string) {
+      console.log('set defaultValueModel')
+      if (val === 'value') {
         switch (this.schemaField.datatype.type) {
           case 'string':
             this.$set(this.schemaField, 'value', '');
@@ -290,19 +280,40 @@
             this.$set(this.schemaField, 'value', new Date().toISOString().slice(0, 10));
             break;
           case 'record':
-            this.$set(this.schemaField, 'value', {});
+            this.$set(this.schemaField, 'value', {_default: false});
             break;
           case 'array':
             this.$set(this.schemaField, 'value', []);
             break;
         }
-        console.log(this.schemaField.value);
+      } else if (val === 'default') {
+        this.$set(this.schemaField, 'value', {});
+      } else {
+        this.$set(this.schemaField, 'value', null);
+      }
+
+    }
+
+    get defaultValueModel() {
+      switch (this.schemaField.datatype.type) {
+        case 'record':
+          if (this.schemaField.value === null || this.schemaField.value === undefined) return 'none'
+          else if (typeof this.schemaField.value === 'object' &&
+            Object.values(this.schemaField.value).length ===0 ) return 'default'
+          else return 'value'
+          break
+        case 'array':
+          if (this.schemaField.value === null || this.schemaField.value === undefined) return 'none'
+          else return 'value'
+          break
+        default:
+          if (this.schemaField.value || this.schemaField.value === '' ||
+            this.schemaField.value === false || this.schemaField.value === 0) return 'value'
+          else return 'none'
       }
     }
 
-    get isValid() {
-      return !!this.schemaField.key && !!this.schemaField.name && this.valueValid;
-    }
+
   }
 </script>
 
