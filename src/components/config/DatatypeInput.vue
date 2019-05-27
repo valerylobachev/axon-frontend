@@ -27,9 +27,6 @@
                            v-model="datatype.element.key"></data-schema-input>
       </div>
     </div>
-    <pre>
-{{ datatype }}
- </pre>
   </div>
 </template>
 
