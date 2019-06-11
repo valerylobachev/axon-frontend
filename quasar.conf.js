@@ -2,7 +2,7 @@
 
 function extendTypescriptToWebpack(cfg) {
   // added the type-script supports
-  cfg.resolve.extensions.push('.ts')
+  cfg.resolve.extensions.push('.ts');
   cfg.module.rules.push({
     test: /\.ts$/,
     loader: 'ts-loader',
@@ -12,10 +12,11 @@ function extendTypescriptToWebpack(cfg) {
 
 module.exports = function (ctx) {
   // console.log(ctx)
-  let distDir = `dist/@{ctx.modeName}`
+  let distDir = `dist/@{ctx.modeName}`;
   if (ctx.prod) {
     distDir = '../annette-axon/axon-backend/public/dist'
   }
+  console.log(distDir);
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -91,23 +92,19 @@ module.exports = function (ctx) {
       },
 
       distDir: distDir,
-      publicPath: 'assets/dist/'
+      // publicPath: 'assets/dist/'
     },
 
     devServer: {
       // https: true,
-      // port: 8080,
+      port: 4200,
       open: true, // opens browser window automatically
       host: '0.0.0.0',
-      contentBase: distDir,
+      // contentBase: distDir,
       // Send API requests on localhost to API server get around CORS.
-      proxy: [
-        {
-          context: ['/web-api'],
-          target: 'http://localhost:9000'
-        },
-      ]
-
+      proxy: {
+          '/web-api': 'http://localhost:9000'
+      },
     },
 
     // animations: 'all' --- includes all animations
@@ -186,4 +183,4 @@ module.exports = function (ctx) {
       }
     }
   }
-}
+};
